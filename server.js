@@ -747,10 +747,24 @@ app.post('/api/ai-guidance', authenticate, async (req, res) => {
     });
   }
 });
+const fs = require('fs');
+
 
 // Serve the main application
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.json({ 
+    success: true,
+    message: 'EduSphere API Server is running successfully!',
+    version: '1.0.0',
+    endpoints: {
+      auth: ['/api/auth/login', '/api/auth/register'],
+      questions: ['/api/questions', '/api/questions/bank'],
+      tests: ['/api/tests'],
+      results: ['/api/test-results'],
+      ai: ['/api/ai-guidance']
+    },
+    documentation: 'Use the API endpoints with proper authentication'
+  });
 });
 
 // Start server
